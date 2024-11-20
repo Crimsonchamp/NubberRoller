@@ -42,7 +42,7 @@ function App() {
     }
     //The prior roll gets rolled into a new copy of the array, adding the latest.
     //We set the type of the result to dicetype, used as result.type and result.rolls later
-    setDiceResult((previousRoll) => [...previousRoll, { type: diceType, rolls }]); // Update state with the new dice roll
+    setDiceResult((previousRoll) => [...previousRoll, { type: diceType, rolls: rolls }]); // Update state with the new dice roll
   };
 
 
@@ -63,17 +63,14 @@ function App() {
 
       {/*We set up the side bar with it's title, input field for dice,followed by buttons
     For the input field, we set up an onChange event, linked to the value, see line 15 */}
-      <aside style={{
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: 'column',
-      }}>Dicebar
+      <aside className='sidebar'>
+        Dicebar
         <input type="text"
-          placeholder='Set amount of dice'
+          placeholder='Dice #'
           value={diceNumber}
           onChange={handleNumberChange}
-
         />
+
         <button
           onClick={() => rollDice(2)}
           className="sidebar-button"
@@ -127,46 +124,28 @@ function App() {
           className="sidebar-button"
         >D100
         </button>
+
+        {/*Simple click logic for the resetDiceLog button */}
+        <button
+          onClick={resetDiceLog}
+          className="sidebar-button"
+        >Reset
+        </button>
       </aside>
 
-      {/*Simple click logic for the resetDiceLog button */}
-      <button
-        onClick={resetDiceLog}
-        style={{
-          padding: '10px 20px',
-          fontSize: '16px',
-          backgroundColor: '#0f0a06',
-          color: '#fff',
-          borderRadius: '8px',
-          cursor: 'pointer',
-        }}
-      >
-        Reset
-      </button>
+
+
 
       {/* Result box */}
       {(
-        <div style={{
-          alignItems: 'center',
-          marginTop: '20px',
-          marginLeft: '0px',
-          textAlign: 'left',
-          fontSize: '24px',
-          fontWeight: 'bold',
-          width: '1000px',
-          height: '800px',
-          overflowY: 'auto',
-          border: '1px solid #ccc',
-          padding: '10px',
-          backgroundColor: '#0f0a06',
-        }}>
+        <div className='result-box'>
           <p>You rolled:</p>
           {/* Index out diceResult, using result.type to show the D, and the index rolls joined together
           Each time diceResult is updated, it remaps, generating a new list of divs, and thus a log,
           since the full log is kept in diceResult itself, it acts more like an update */}
           {diceResult.map((result, index) => (
             <div key={index}>
-              D{result.type}: {result.rolls.join(',')}</div>
+              D{result.type}: {result.rolls.join(',')}<p></p> </div>
           ))}
         </div>
       )}

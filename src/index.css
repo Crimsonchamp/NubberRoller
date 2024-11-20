@@ -71,6 +71,12 @@ aside {
   background-color: rgb(153, 152, 152);
 }
 
+input {
+  position: relative;
+  width: 80%;
+  text-align: center;
+}
+
 /*Media query for light theme*/
 @media (prefers-color-scheme: light) {
   :root {
