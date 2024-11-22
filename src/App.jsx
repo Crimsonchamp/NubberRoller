@@ -1,9 +1,18 @@
 import { useState } from 'react'
-import './App.css'
 import React from 'react';
+import '@mantine/core/styles.css';
+import { MantineProvider } from '@mantine/core'
+import { ActionToggle } from '../components/ActionToggle'
+import './App.css'
+
 
 //Basic wrap for what is essentially main of the app
 function App() {
+
+  const [windowSizes, setWindowSizes] = useState({
+    width: 0,
+    height: 0
+  });
 
 
   // State to hold the dice result, we set useState to an empty array, to hold results
@@ -51,86 +60,77 @@ function App() {
     setDiceResult([])
   };
 
-  return (
-    //main page style+header
-    <div>
-      <header
-        className='header'>
-        <img src="https://nubbernaut.com/wp-content/uploads/2020/12/cropped-nubbe_logo_transparent_bg.png" alt="Nubber" className='nub' />
-        NubberRoller
-        <img src="https://nubbernaut.com/wp-content/uploads/2020/12/cropped-nubbe_logo_transparent_bg.png" alt="Nubber" className='nub' />
-      </header>
-
+  return (<MantineProvider defaultColorScheme="dark">
+    <header>
+      <img src="https://nubbernaut.com/wp-content/uploads/2020/12/cropped-nubbe_logo_transparent_bg.png" alt="Nubber" className='nub' />
+      NubberRoller
+      <img src="https://nubbernaut.com/wp-content/uploads/2020/12/cropped-nubbe_logo_transparent_bg.png" alt="Nubber" className='nub' />
+      <ActionToggle />
+    </header>
+    <body>
       {/*We set up the side bar with it's title, input field for dice,followed by buttons
     For the input field, we set up an onChange event, linked to the value, see line 15 */}
-      <aside className='sidebar'>
-        Dicebar
+      <aside>
         <input type="text"
           placeholder='Dice #'
+
           value={diceNumber}
           onChange={handleNumberChange}
         />
-
-        <button
-          onClick={() => rollDice(2)}
-          className="sidebar-button"
-        >D2
-        </button>
-
-        <button
-          onClick={() => rollDice(3)}
-          className="sidebar-button"
-        >D3
-        </button>
-
-        <button
-          onClick={() => rollDice(4)}
-          className="sidebar-button"
-        >D4
-        </button>
-
-        <button
-          onClick={() => rollDice(6)}
-          className="sidebar-button"
-        >D6
-        </button>
-
-        <button
-          onClick={() => rollDice(8)}
-          className="sidebar-button"
-        >D8
-        </button>
-
-        <button
-          onClick={() => rollDice(10)}
-          className="sidebar-button"
-        >D10
-        </button>
-
-        <button
-          onClick={() => rollDice(12)}
-          className="sidebar-button"
-        >D12
-        </button>
-
-        <button
-          onClick={() => rollDice(20)}
-          className="sidebar-button"
-        >D20
-        </button>
-
-        <button
-          onClick={() => rollDice(100)}
-          className="sidebar-button"
-        >D100
-        </button>
-
         {/*Simple click logic for the resetDiceLog button */}
         <button
           onClick={resetDiceLog}
-          className="sidebar-button"
         >Reset
         </button>
+        <dice>
+          <button
+            onClick={() => rollDice(2)}
+          >D2
+          </button>
+
+          <button
+            onClick={() => rollDice(3)}
+          >D3
+          </button>
+
+          <button
+            onClick={() => rollDice(4)}
+          >D4
+          </button>
+
+          <button
+            onClick={() => rollDice(6)}
+          >D6
+          </button>
+
+          <button
+            onClick={() => rollDice(8)}
+          >D8
+          </button>
+
+          <button
+            onClick={() => rollDice(10)}
+          >D10
+          </button>
+
+          <button
+            onClick={() => rollDice(12)}
+          >D12
+          </button>
+
+          <button
+            onClick={() => rollDice(20)}
+          >D20
+          </button>
+
+          <button
+            onClick={() => rollDice(100)}
+          >D100
+          </button>
+        </dice>
+
+
+
       </aside>
 
 
@@ -138,7 +138,7 @@ function App() {
 
       {/* Result box */}
       {(
-        <div className='result-box'>
+        <box>
           <p>You rolled:</p>
           {/* Index out diceResult, using result.type to show the D, and the index rolls joined together
           Each time diceResult is updated, it remaps, generating a new list of divs, and thus a log,
@@ -147,11 +147,13 @@ function App() {
             <div key={index}>
               D{result.type}: {result.rolls.join(',')}<p></p> </div>
           ))}
-        </div>
+        </box>
       )}
-    </div>
-  );
+    </body>
+  </MantineProvider>
+  )
 }
+
 
 export default App;
 
