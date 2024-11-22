@@ -115,7 +115,7 @@ input {
 }
 
 /*Temp media query for mobile, upright*/
-@media(max-width:915px) {
+@media(max-width:768px) {
   header {
     height: 10vh
   }
@@ -157,7 +157,7 @@ input {
   }
 }
 
-@media(max-height:768px) {
+@media(max-height:500px) {
   header {
     height: 10vh
   }
@@ -183,7 +183,7 @@ input {
   }
 
   input {
-    width: auto
+    width: 80%;
   }
 
   dice {
