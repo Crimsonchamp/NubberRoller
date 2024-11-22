@@ -115,7 +115,7 @@ input {
 }
 
 /*Temp media query for mobile, upright*/
-@media(max-width:768px) {
+@media(max-width:915px) {
   header {
     height: 10vh
   }
